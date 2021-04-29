@@ -1,0 +1,19 @@
+{
+  "properties": [
+    {
+      "name": "aws.accesskey",
+      "type": "java.lang.String",
+      "description": "Description for aws.accessKey."
+    },
+    {
+      "name": "aws.secretkey",
+      "type": "java.lang.String",
+      "description": "Description for aws.secretKey."
+    },
+    {
+      "name": "mail.token",
+      "type": "java.lang.String",
+      "description": "Address for recorvery token"
+    }
+      ]
+}

@@ -1,0 +1,60 @@
+<nav class="navbar navbar-expand-lg navbar-light sticky-top"  *ngIf="ns.visible">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+      (click)="isShown = !isShown" [attr.aria-expanded]="isShown">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent" data-toggle="collapse"
+      [ngClass]="{ 'show': isShown }" (click)="isShown = !isShown">
+      <ul class="navbar-nav mr-auto justify-content-start">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="home">Strona główna</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="news">Newsy</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="search">Wyszukiwarka</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="forum">Forum</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="ranking">Ranking</a>
+        </li>
+        <div *ngIf="userCurrentRole==='REDAKTOR'||userCurrentRole==='ADMIN';then adminTemplate;else userTemplate"></div>
+        <ng-template #adminTemplate>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="article">Dodaj Artykuł</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="hardware">Dodaj Sprzęt</a>
+        </li>
+      </ng-template>
+      <ng-template #userTemplate>
+      </ng-template>
+      </ul>
+      <ul class="navbar-nav mr-2 justify-content-end">
+        <div *ngIf="userIsLogin;then thenTemplate;else elseTemplate"></div>
+        <ng-template #elseTemplate>
+          <li class="nav-item">
+            <a mat-raised-button class="nav-link" (click)="openLoginDialog()">Logowanie</a>
+          </li>
+          <li class="nav-item">
+            <a mat-raised-button class="nav-link" (click)="openRegisterDialog()">Rejestracja</a>
+          </li>
+        </ng-template>
+        <ng-template #thenTemplate>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="userPanel">{{user}}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="logout()">Wyloguj</a>
+          </li>
+        </ng-template>
+      </ul>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,57 @@
+<div class="searchField">
+    <div class="form-group row justify-content-lg-center">
+        <label for="cpu" class="col-lg-3 col-sm-12  col-form-label selectCpu ">Wybierz Procesor</label>
+        <div class="col-lg-4 col-sm-12 ">
+            <select class="form-control" id="cpu" name="cpu" [(ngModel)]="cpu">
+                <option *ngFor='let item of cpuList' [value]='item.id'>
+                    {{item.brand}} {{item.type}} {{item.socket}}
+                </option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group row justify-content-lg-center">
+        <label for="gpu" class="col-lg-3 col-sm-12 col-form-label selectGpu">Wybierz karte
+            graficzną</label>
+        <div class="col-lg-4 col-sm-12">
+            <select class="form-control" id="gpu" name="gpu" [(ngModel)]="gpu">
+                <option *ngFor='let item of gpuList' [value]='item.id'>
+                    {{item.manufacture}} {{item.brand}} {{item.type}}
+                </option>
+            </select>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <button class="btn btn-outline-secondary" (click)="checkComponent()">Zatwierdź</button>
+    </div>
+</div>
+<div *ngIf='showAnswer' id='answer'>
+    <p>Obecnie polecana karta graficzna do twojego komputera to: </p>
+    <div *ngIf='gpuNotFound'>
+        <p>
+            <b>Brak danych </b>
+        </p>
+    </div>
+    <div *ngFor='let item of GPUrecommended'>
+        <p>
+            <b>
+                <a href="https://www.google.com/?q={{item.manufacture}}+{{item.brand}}+{{item.type}} ">
+                    {{item.manufacture}} {{item.brand}} {{item.type}}</a>
+            </b>
+        </p>
+    </div>
+    <p>
+        Aby wykorzystać potencjał twojej karty graficznej zalecany jest procesor:</p>
+    <div *ngIf='cpuNotFound'>
+        <p>
+            <b>Brak danych </b>
+        </p>
+    </div>
+    <div *ngFor='let item of CPUrecommended'>
+        <p>
+            <b><a href="https://www.google.com/?q={{item.brand}}+{{item.type}}+{{item.socket}} ">
+                    {{item.brand}} {{item.type}} {{item.socket}}</a>
+            </b>
+        </p>
+    </div>
+</div>

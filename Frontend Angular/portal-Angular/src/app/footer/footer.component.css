@@ -1,0 +1,16 @@
+.footer {
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    background-color: black;
+}
+.container{
+    background-color: black;
+
+}
+.row{
+    justify-content: center;  
+}
+a{
+    color: white;
+}

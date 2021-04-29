@@ -1,0 +1,166 @@
+<mat-tab-group dynamicHeight mat-align-tabs='center' maxlength="auto">
+    <mat-tab label="Zmień hasło">
+        <br />
+        <div class="form-group row">
+            <label for="newPassword" class="col-lg-3 col-sm-12 col-form-label">Nowe hasło</label>
+            <input type="password" id="newPassword" name="newPassword" class="form-control col-lg-4 col-sm-8"
+                placeholder="nowe hasło" [(ngModel)]="newPassword" #newPasswordtest="ngModel" minlength="4">
+        </div>
+        <div class="form-group row">
+            <div *ngIf="newPasswordtest.invalid && (newPasswordtest.dirty || newPasswordtest.touched)"
+                class="alert alert-danger">
+                <div *ngIf="newPasswordtest.errors.minlength">
+                    hasło jest za krótkie
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="newPassword2" class="col-lg-3 col-sm-12 col-form-label">Powtórz hasło</label>
+            <input class="form-control  col-lg-4 col-sm-8" id="newPassword2" name="newPassword2" type="password"
+                placeholder="powtórz hasło" [(ngModel)]="newPassword2" #newPasswordtest2="ngModel"
+                pattern={{newPasswordtest.value}}>
+        </div>
+        <div class="form-group row">
+            <div *ngIf="newPasswordtest2.invalid && (newPasswordtest2.dirty || newPasswordtest2.touched)"
+                class="alert alert-danger">
+                <div *ngIf="newPasswordtest2.errors.pattern">
+                    Hasła nie są identyczne
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <button class="btn btn-primary" (click)="changePassword()">Zmień hasło</button>
+        </div>
+
+    </mat-tab>
+    <mat-tab label="Zmień email">
+        <br />
+        <div class="form-group row">
+            <label for="newEmail" class=" col-lg-3 col-sm-12 col-form-label">Nowy email</label>
+            <input class="form-control  col-lg-4 col-sm-8" id="newEmail" name="newEmail" type="text"
+                [(ngModel)]="newEmail">
+        </div>
+        <div class="form-group row  ">
+            <label for="newEmail2" class=" col-lg-3 col-sm-12 col-form-label">Powtórz email</label>
+            <input class="form-control  col-lg-4 col-sm-8" id="newEmail2" name="newEmail2" type="text"
+                [(ngModel)]="newEmail2">
+        </div>
+        <div class="form-group row ">
+            <button class="btn btn-primary" (click)="changeEmail()">Zmień email</button>
+        </div>
+    </mat-tab>
+
+    <mat-tab *ngIf='role=="ADMIN"||role=="REDAKTOR"' label="Zarządzaj newsami">
+        <br />
+        <div class="form-group row ">
+            <label for="gpu" class="col-lg-3 col-form-label">Wybierz News</label>
+            <div class="col-lg-4 col-sm-8">
+                <select class="form-control" id="news" name="newsList" [(ngModel)]="selectValue">
+                    <option *ngFor='let item of news' [value]='item.id'>
+                        {{item.title}}
+                    </option>
+                </select>
+
+            </div>
+        </div>
+        <div class="form-group row ">
+            <button class="btn btn-primary" style="margin-right: 5px;" (click)="editNews()">Edytuj</button>
+            <button class="btn btn-primary" (click)="deleteNews()">Usuń</button>
+        </div>
+    </mat-tab>
+    <mat-tab *ngIf='role=="ADMIN"||role=="MODERATOR"' label="Zarządzaj komentarzami">
+        <br />
+        <div class="form-group row">
+            <label for="gpu" class="col-lg-3 col-form-label">Wybierz komentarz</label>
+            <div class=" col-lg-4 col-sm-8">
+                <select class="form-control" id="comments" name="comments" [(ngModel)]="selectValue">
+                    <option *ngFor='let item of comments' [value]='item.id'>
+                        {{item.text}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <button class="btn btn-primary" style="margin-right: 5px;" (click)="editComments()">Edytuj</button>
+            <button class="btn btn-primary" (click)="deleteComments()">Usuń</button>
+        </div>
+        <div class="form-group row " style="max-width: 50%; margin-left: auto; margin-right: auto;"
+            *ngIf='showEdit===true;'>
+            <textarea class="form-control" id="testare-title" rows="3" [(ngModel)]="textComment"></textarea>
+            <button class="btn btn-primary" (click)="saveComments()">Zapisz</button>
+        </div>
+    </mat-tab>
+    <mat-tab *ngIf='role=="ADMIN"||role=="MODERATOR"' label="Zarządzaj Forum">
+        <br />
+        <div class="form-group row">
+            <label for="gpu" class=" col-lg-3 col-form-label">Wybierz Temat</label>
+            <div class="col-lg-4 col-sm-8">
+                <select (change)="getTopic()" class="form-control" id="news" name="newsList" [(ngModel)]="selectValue">
+                    <option *ngFor='let item of topicList' [value]='item.id'>
+                        {{item.titleTopic}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <button class="btn btn-primary" style="margin-right: 5px;" (click)="editTopic()">Edytuj</button>
+            <button class="btn btn-primary" (click)="deleteTopic()">Usuń</button>
+        </div>
+        <div class="form-group row" style="max-width: 50%; margin-left: auto; margin-right: auto;"
+            *ngIf='showEditTopic==true;'>
+            <textarea class="form-control" id="testare-title" rows="3" [(ngModel)]="textTopic"></textarea>
+            <button class="btn btn-primary" (click)="saveTopic()">Zapisz</button>
+        </div>
+        <div *ngIf='commentList!=undefined'>
+            <div class="form-group row">
+                <label for="gpu" class="col-lg-3 col-form-label">Wybierz Komentarz</label>
+                <div class="col-lg-4 col-sm-8">
+                    <select class="form-control" id="news" name="newsList" [(ngModel)]="selectValue2">
+                        <option *ngFor='let item of commentList?.forumTopicCommList;' [value]='item.id'>
+                            {{item.text}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <button class="btn btn-primary" style="margin-right: 5px;" (click)="editTopicComm()">Edytuj</button>
+                <button class="btn btn-primary" (click)="deleteTopicComm()">Usuń</button>
+            </div>
+        </div>
+        <div class="form-group row" style="max-width: 50%; margin-left: auto; margin-right: auto;"
+            *ngIf='showEditTopicComment==true;'>
+            <textarea class="form-control" id="testare-title" rows="3" [(ngModel)]="textTopicComm"></textarea>
+            <button class="btn btn-primary" (click)="saveTopicComm()">Zapisz</button>
+        </div>
+    </mat-tab>
+
+    <mat-tab *ngIf='role=="ADMIN"' label="Zmień uprawnienia">
+        <br />
+        <div class="form-group row ">
+            <label for="gpu" class="col-lg-3 col-form-label">Wybierz Użytkownika</label>
+            <div class="col-lg-4 col-sm-8">
+                <select class="form-control" id="userName" name="userName" [(ngModel)]="selectValue">
+                    <option *ngFor='let item of userName' [value]='item.id'>
+                        {{item.username}}
+                    </option>
+                </select>
+
+            </div>
+        </div>
+        <div class="form-group row ">
+            <label for="gpu" class="col-lg-3 col-form-label">Wybierz Uprawnienia</label>
+            <div class="col-lg-4 col-sm-8">
+                <select class="form-control" id="userRole" name="userRole" [(ngModel)]="selectValue2">
+                    <option *ngFor='let item of userRole' [value]='item.id'>
+                        {{item.role}}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row  ">
+            <button class="btn btn-primary" style="margin-right: 5px;" (click)="changeRole()">Zapisz</button>
+        </div>
+    </mat-tab>
+
+</mat-tab-group>

@@ -1,0 +1,21 @@
+th {
+    width: 1000px;
+    color: black;
+}
+
+thead {
+    background-color: #3578E5;
+    color: white;
+}
+
+a {
+    color: black;
+}
+
+img {
+    min-width: 30px;
+    max-width: 50px;
+}
+.dateTime {
+    justify-content: end;
+}

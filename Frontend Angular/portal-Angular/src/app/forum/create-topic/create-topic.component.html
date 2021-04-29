@@ -1,0 +1,14 @@
+<div>
+    <div class="input-group">
+        <div class="title">
+            <label>Tytuł</label>
+            <textarea class="form-control" id="testare-title" rows="1" [(ngModel)]="textTitle"></textarea>
+            <label>Treść</label>
+            <textarea class="form-control" id="testare-article" rows="10" [(ngModel)]="textTopic"></textarea>
+        </div>
+    </div>
+    <br />
+    <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" (click)="save()">Utwórz temat</button>
+    </div>
+</div>

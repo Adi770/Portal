@@ -1,0 +1,15 @@
+.centralTopic{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media screen and (max-width:960px){
+    .container{
+        width: 600px;
+    }
+}
+@media (max-width: 576px){
+    .container{
+        width: 400px;
+    }
+}

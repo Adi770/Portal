@@ -1,0 +1,23 @@
+thead {
+    background-color: #3578E5;
+    color: white;
+}
+
+.buttons{
+    display: flex; 
+    justify-content: flex-end;
+}
+.sizeTextArea{
+    width: 50%;
+    margin-right: auto;
+    margin-left: auto;
+
+}
+.date{
+    text-align: end;
+}
+.templateButton{
+    margin:auto;
+    display:block;
+
+}

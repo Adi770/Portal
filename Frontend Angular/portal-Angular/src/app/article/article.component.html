@@ -1,0 +1,26 @@
+<img [src]="imageSrc" *ngIf="imageSrc">
+
+<div>
+  <div class="input-group">
+    <div class="custom-file">
+      <input type="file" class="custom-file-input" id="customFile" (change)="onUpload($event)">
+      <label class="custom-file-label" for="customFile">
+        <div>{{nameImage}}</div>
+      </label>
+    </div>
+
+  </div>
+
+  <div class="title">
+    <label>Tytuł Artykułu</label>
+    <textarea class="form-control" id="testare-title" rows="1" [(ngModel)]="textTitle"></textarea>
+    <label>Treść Artykułu</label>
+
+      <ckeditor class="textare-article" [config]="config" [editor]="Editor" id="testare-article" [(ngModel)]="textArticle"></ckeditor>
+
+  </div>
+</div>
+<br />
+<div class="input-group-append">
+  <button class="btn btn-outline-secondary" type="button" (click)="upload()">Zapisz Artykuł</button>
+</div>

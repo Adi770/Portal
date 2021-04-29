@@ -1,0 +1,147 @@
+img {
+   max-height: 110px;
+   max-width: 150px;
+}
+
+.table {
+   background: white;
+   overflow: hidden;
+}
+
+.table td, .table th {
+   padding: .75rem;
+   vertical-align: top;
+   border-top: none;
+}
+
+.topTable {
+   background: white;
+   overflow: hidden;
+}
+
+.spacingBorder {
+   border-collapse: separate;
+   border-spacing: 0 1em;
+}
+
+h1 {
+   white-space: normal;
+}
+
+.titleTable2 {
+   color: whitesmoke;
+   width: 100%;
+   border-top: solid;
+   border-color: white;
+   background: rgb(0, 191, 255);
+   background: linear-gradient(164deg, rgba(0, 191, 255, 1) 44%, rgba(0, 212, 255, 0.33406866164434523) 100%);
+}
+
+.titleText {
+   float: left;
+}
+
+.triangle {
+   width: 0;
+   height: 0;
+   border-left: 30px solid transparent;
+   border-right: 30px solid transparent;
+   border-top: 25px solid deepskyblue;
+}
+
+.headerTable {
+   border-bottom: none;
+}
+
+.articleTitle {
+   font-size: 1vw;
+   font-weight: bold;
+}
+
+#header {
+   position: relative;
+   width: 15%;
+   text-align: right;
+   font-size: 1vw;
+}
+
+#header-content {
+   position: absolute;
+   bottom: 0;
+   right: 12px;
+   font-size: 1vw;
+}
+
+a {
+   color: black;
+   background-color: transparent;
+   text-decoration: none;
+   vertical-align: top;
+}
+
+.topTable {
+   table-layout: fixed;
+}
+
+.overflowText {
+   display: block;
+   display: -webkit-box;
+   max-width: 400px;
+   -webkit-line-clamp: 2;
+   -webkit-box-orient: vertical;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   font-size: 1vw;
+}
+
+.bodySpace2 {
+
+   border-top: solid;
+   border-color: white;
+   background: rgb(218, 237, 248);
+   background: linear-gradient(164deg, rgb(184, 227, 251) 100%, rgba(255, 255, 255, 0.541) 100%);
+}
+
+
+p.title{
+   color:  rgb(56, 56, 56);
+   margin-left: 5%;
+   margin-top: 5%;
+}
+
+p.rate{
+   color:  rgb(56, 56, 56);
+   text-align: right;
+   margin-right: 5%;
+}
+
+.bodySpace2 :hover > p.title,
+.bodySpace2 :hover > p.rate {
+   color: rgb(104, 104, 104);;
+}
+
+
+
+
+@media (max-width: 968px) {
+   .topTable {
+      display: none;
+   }
+   img {
+      display: none;
+   }
+   .articleDate {
+      font-size: 1vw;
+   }
+}
+
+@media (min-width: 968px) {
+   .articleDate {
+      min-width: 100px;
+   }
+}
+
+.table-striped td.articleTitle {
+   vertical-align: top;
+   line-height: 0;
+}

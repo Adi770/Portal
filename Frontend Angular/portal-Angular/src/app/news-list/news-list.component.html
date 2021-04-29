@@ -1,0 +1,76 @@
+<div class="container" style="height: 100%;">
+    <h1>Aktualności</h1>
+    <div>
+        <h3 style="font-size: 1.5em;">ze świata gier oraz banży IT. Ciekawostki oraz najnowsze plotki o nadchodzących
+            premierach i
+            wydarzeniach.
+        </h3>
+
+    </div>
+    <div class="row">
+        <div class="col-xs-9 col-lg-9 col-sm-12">
+            <table class="table table-striped newstable">
+                <thead>
+                    <tr>
+                        <th class="row-1 row-image"></th>
+                        <th class="row-2 row-article"></th>
+                        <th class="row-3 row-date"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of newsData">
+
+                        <td routerLink="{{item.id}}">
+                            <img [src]="imageServer(item.image)" />
+                        </td>
+
+                        <td routerLink="{{item.id}}">
+                            <h4 class="overflowText articleTitle">{{item.title}}</h4>
+                            <p class="overflowText" [innerHTML]="item?.article | striphtml">
+                            </p>
+                        </td>
+
+
+                        <td style="min-width: 50px;">
+                            <p class="articleDate">{{item?.date}}</p>
+                            <br />
+                            <p id="header-content">{{item.Rating}}</p>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-xs-3 col-lg-3 col-sm-12">
+            <table class="table topTable">
+                <thead class="headerTable">
+                    <tr>
+                        <th class="titleTable2" style="border-bottom: none;">
+                            <h3><b>Najlepsze</b></h3>
+                        </th>
+                    </tr>
+                    <tr>
+                        <div class="triangle"> </div>
+                    </tr>
+                </thead>
+                <Tbody>
+                    <tr *ngFor="let item of newsTheBestData" class="bodySpace2">
+                        <a href="news/{{item.id}}">
+                            <p class="title"><b>{{item.title}}</b></p>
+                            <p class="rate"><b>Ocena
+                                    {{item.rate}}</b>
+                            </p>
+                        </a>
+                    </tr>
+                </Tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-9 col-lg-9 col-sm-12 d-flex justify-content-center">
+                <ngb-pagination [(page)]="page" (pageChange)="getPageFromService($event)" [pageSize]="pageSize"
+                    [collectionSize]="items" [rotate]="true" [maxSize]="5" [boundaryLinks]="false">
+                </ngb-pagination>
+        </div>
+    </div>
+</div>

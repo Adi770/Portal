@@ -1,0 +1,12 @@
+:host ::ng-deep .ck-editor__editable_inline {
+    min-height: 500px;
+}
+
+.component:after {
+    content: '';
+    float: left;
+}
+
+footer {
+    clear: left;
+}

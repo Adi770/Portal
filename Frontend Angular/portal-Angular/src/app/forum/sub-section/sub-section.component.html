@@ -1,0 +1,19 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th style="color: whitesmoke;">{{name}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <div *ngFor="let item of dataSection?.forumTopicList">
+            <tr>
+                <th><img src="/assets/Forum/cpu.svg"></th>
+                <th style="width: 70%;"><a [routerLink]="['/forum',name,'Topic',item.id]"
+                        [skipLocationChange]="false">{{item.titleTopic}}</a></th>
+                <th class="dateTime">{{item.date}}</th>
+            </tr>
+        </div>
+    </tbody>
+    <button class="btn btn-primary" (click)="newTopic()">Dodaj nowy temat</button>
+    <p></p>
+</table>

@@ -1,0 +1,52 @@
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th colspan="2" style="width: 80%;">{{dataTopic?.titleTopic}}</th>
+                <th class="date">{{dataTopic?.date}}</th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let item of dataTopic?.forumTopicCommList">
+            <tr>
+                <th style="width: 20%;">{{item.user.username}}<br>Role: {{item.user.role}}</th>
+                <td colspan="2" style="height: 200px;">{{item.text}}</td>
+            </tr>
+            <tr>
+                <th colspan="3" style="width: 80%;">
+                    <div class="buttons"
+                        *ngIf="username == item.user.username || role=='ADMIN' || role=='MODERATOR';else elseblock ">
+                        <button class="btn btn-primary" (click)='deletePost(item.id)'>Usuń</button>
+                        <button class="btn btn-primary" (click)='editPost(item.id)'>Edytuj</button>
+                    </div>
+                    <ng-template #elseblock>
+
+                    </ng-template>
+                </th>
+            </tr>
+
+        </tbody>
+    </table>
+    <div *ngIf="isLogin == true; then isloginTemplate; else notLoginTemplate"></div>
+    <ng-template #isloginTemplate>
+        <div class="sizeTextArea">
+            <textarea class="form-control" id="textArea-comment" rows="3" [(ngModel)]="postData"></textarea>
+            <div *ngIf="show==true;then thenTemplate;else elseTemplate"></div>
+            <ng-template #thenTemplate>
+                <button class="btn btn-primary templateButton" (click)='addPost()'>Dodaj</button>
+            </ng-template>
+            <ng-template #elseTemplate>
+                <button class="btn btn-primary templateButton" (click)='updatePost()'>Update</button>
+            </ng-template>
+        </div>
+    </ng-template>
+    <ng-template #notLoginTemplate>
+        <div class="sizeTextArea">
+            <textarea class="form-control" id="textArea-comment" rows="3" placeholder="Aby dodać odpowiedź musisz być zalogowany" [(ngModel)]="postData" disabled></textarea>
+            <div *ngIf="show==true;then thenTemplate;else elseTemplate"></div>
+            <ng-template #thenTemplate>
+                <button class="btn btn-primary templateButton" (click)='addPost()' disabled>Dodaj</button>
+            </ng-template>
+            <ng-template #elseTemplate>
+                <button class="btn btn-primary templateButton" (click)='updatePost()' disabled>Update</button>
+            </ng-template>
+        </div>
+    </ng-template>

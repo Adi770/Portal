@@ -1,0 +1,65 @@
+<div class="row">
+    <form name="register" class="form-login" (keyup.enter)="register()">
+        <h4>Rejestracja</h4>
+        <div class="form-label-group">
+            <input type="text" id="login" class="form-control input-sm" placeholder="login" [(ngModel)]="login"
+                name="login" #loginname="ngModel" minlength="4" required />
+            <div class="form-group row justify-content-lg-center ">
+                <div *ngIf="loginname.invalid &&(loginname.dirty || loginname.touched)" class="alert alert-danger">
+                    <div *ngIf="loginname.errors.required">
+                        Login jest wymagany
+                    </div>
+                    <div *ngIf="loginname.errors.minlength">
+                        Login jest za krótki
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-label-group">
+            <input type="text" id="email" class="form-control input-sm" placeholder="email" [(ngModel)]="email"
+                name="email" #emailname="ngModel" required />
+            <div class="form-group row justify-content-lg-center ">
+                <div *ngIf="emailname.invalid &&(emailname.dirty || emailname.touched)" class="alert alert-danger">
+                    <div *ngIf="emailname.errors.required">
+                        Email jest wymagany
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-label-group">
+            <input type="password" id="password1" class="form-control input-sm" placeholder="hasło"
+                [(ngModel)]="password1" name="password1" #createpassword="ngModel" minlength="4" required />
+            <div class="form-group row justify-content-lg-center ">
+                <div *ngIf="createpassword.invalid && (createpassword.dirty || createpassword.touched)"
+                    class="alert alert-danger">
+                    <div *ngIf="createpassword.errors.minlength">
+                        Hasło jest za krótkie
+                    </div>
+                    <div *ngIf="createpassword.errors.required">
+                        Hasło jest wymagane
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="form-label-group">
+            <input type="password" id="confirmPassword" class="form-control input-sm" placeholder="hasło"
+                [(ngModel)]="password2" name="confirmPassword" #confirmpassword="ngModel" pattern={{password1}}
+                required />
+            <div class="form-group row justify-content-lg-center ">
+                <div *ngIf="confirmpassword.invalid && (confirmpassword.dirty || confirmpassword.touched)"
+                    class="alert alert-danger">
+                    <div *ngIf="confirmpassword.errors.pattern">
+                        Hasła nie są identyczne
+                    </div>
+                    <div *ngIf="confirmpassword.errors.required">
+                        Hasło jest wymagane
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper">
+            <button type="submit" class="btn btn-primary" (click)="register()">Rejestracja</button>
+        </div>
+    </form>
+</div>

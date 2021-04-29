@@ -1,0 +1,47 @@
+<div class="clear">
+  <div class="row">
+    <div class="tableContainer col-lg-8 col-sm-12">
+      <table class="table" *ngFor="let item of data">
+        <thead>
+          <tr>
+            <th colspan="2" style="color: whitesmoke;">{{item.section}}</th>
+          </tr>
+        </thead>
+        <tbody style="background-color: #FAFAFA;">
+          <tr *ngFor="let itemitem of item.forumSubSectionsList">
+            <th style="width: 5%;">
+              <img src="/assets/Forum/cpu.svg">
+            </th>
+            <th style="text-justify: center;">
+              <a [routerLink]="['/forum',itemitem.name]" [queryParams]="{id:itemitem.id}"
+                [skipLocationChange]="false">{{itemitem.name}}
+              </a>
+            </th>
+          </tr>
+        </tbody>
+        <br />
+      </table>
+    </div>
+    <div class="tableContainer2 col-lg-4 col-sm-12">
+      <table class="table">
+        <thead>
+          <tr>
+            <th style="color: whitesmoke;">Ostatnie posty na forum</th>
+          </tr>
+        </thead>
+        <tbody style="background-color: #FAFAFA;">
+          <tr *ngFor="let item of lastTopicData">
+            <td>
+              <a [routerLink]="['/forum','','Topic',item.id]" [skipLocationChange]="true">
+                <b>
+                  <p>{{item.titleTopic}}</p>
+                </b>
+                <div style="vertical-align: bottom; text-align: right;">{{item.date}}</div>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

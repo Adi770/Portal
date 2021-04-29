@@ -1,0 +1,20 @@
+.input-group{
+    margin: auto;
+}
+
+
+.title{
+     margin-left: auto;
+     margin-right: auto;
+     width: 80%;
+}
+
+.form-text{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.input-group-append{
+    justify-content: center;
+}

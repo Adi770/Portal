@@ -1,0 +1,45 @@
+th {
+    color: black;
+}
+
+img {
+    min-width: 30px;
+    max-width: 50px;
+}
+
+thead {
+    background-color: #3578E5;
+    color: white;
+}
+
+a {
+    color: black;
+}
+
+.tableSection {
+    border-style: solid;
+}
+
+.tableContainer {
+    float: left;
+    background: white;
+    overflow: hidden;
+    clear: both;
+}
+
+.tableContainer2 {
+    float: right;
+    overflow: auto;
+    
+}
+
+
+
+@media (max-width: 960px){
+    .tableContainer2{
+        display: none;
+    }
+    .tableContainer{
+        max-width: 100%;
+    }
+}

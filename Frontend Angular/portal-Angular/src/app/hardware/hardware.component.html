@@ -1,0 +1,132 @@
+
+    <mat-tab-group dynamicHeight mat-align-tabs='center'>
+        <mat-tab label="Procesor">
+            <br />
+            <div class="Cpu">
+                <div class="form-group row justify-content-lg-center justify-content-sm-center">
+                    <label for="cpuSelect" class="col-lg-2 col-sm-12 col-form-label">Wybierz CPU</label>
+                    <div class="col-lg-4 col-sm-9">
+                        <select (change)="selectCPU($event)" type="number" class="form-control col-lg-2" id="cpuSelect"
+                            name="cpuSelect" [(ngModel)]="idinListCpu">
+                            <option *ngFor='let item of cpuList; let i=index' [value]='i'>
+                                {{item.brand}} {{item.type}}
+                                {{item.index}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row justify-content-lg-center justify-content-sm-center ">
+                    <label for="inputIdCpu" class="col-lg-3 col-form-label">ID procesora</label>
+                    <label class="form-control col-lg-4 col-sm-8" id="inputIdCpu">{{idCpu}}</label>
+                </div>
+                <div class="form-group row justify-content-lg-center justify-content-sm-center">
+                    <label for="inputBrandCpu" class="col-lg-3 col-form-label">Marka</label>
+                    <input class="form-control col-lg-4 col-sm-8" id="inputBrandCpu" [(ngModel)]="brandCpu">
+                </div>
+                <div class="form-group row justify-content-lg-center justify-content-sm-center">
+
+                    <label for="inputTypeCpu" class="col-lg-3 col-form-label">Typ</label>
+                    <input class="form-control col-lg-4 col-sm-8" id="inputTypeCpu" [(ngModel)]="typeCpu">
+                </div>
+                <div class="form-group row justify-content-lg-center justify-content-sm-center">
+                    <label for="inputSocketCpu" class="col-lg-3 col-form-label col-sm-12">Socket</label>
+                    <input class="form-control col-lg-4 col-sm-8" id="inputSocketCpu" [(ngModel)]="socket">
+                    <br />
+                </div>
+                <div class="form-group row justify-content-lg-center justify-content-sm-center">
+                    <label for="inputCheckBox" class="col-lg-3 col-form-label col-sm-12 ">Polecane</label>
+                    <input class="form-check col-lg-1 offset-lg-1 resizeButton col-sm-12" type="checkbox" id="inputCheckBox" [(ngModel)]="recommend">
+                    <div class="col-lg-2"></div>
+                    <br />
+                </div>
+                <div class="form-group row justify-content-lg-center justify-content-sm-center ">
+                    <button class="btn btn-primary" (click)="saveCPU()" style="margin-right: 5px;" >Zapisz</button>
+                    <button class="btn btn-primary" (click)="deleteCPU(idCpu)">Usuń</button>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="Karta graficzna">
+            <br />
+            <div class="Gpu">
+                <div class="form-group row justify-content-lg-center justify-content-sm-center">
+                    <label for="gpuSelect" class="col-lg-2 col-sm-12 col-form-label">Wybierz GPU</label>
+                    <div class="col-lg-4 col-sm-9">
+                        <select (change)="selectGPU($event)" class="form-control col-lg-2" id="gpuSelect"
+                            name="gpuSelect" [(ngModel)]="idinListGpu">
+                            <option *ngFor='let item of gpuList;let i=index' [value]='i'>
+                                {{item.manufacture}} {{item.brand}} {{item.type}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row justify-content-lg-center justify-content-sm-center">
+
+                    <label for="inputIdGpu" class="col-lg-3 col-form-label">ID karty graficznej</label>
+                    <label class="form-control col-lg-4 col-sm-8" id="inputIdGpu">{{idGpu}}</label>
+                </div>
+                <div class="form-group row justify-content-lg-center justify-content-sm-center">
+
+                    <label for="inputManufactureGpu" class="col-lg-3 col-form-label">Marka</label>
+                    <input class="form-control col-lg-4 col-sm-8" id="inputManufactureGpu" [(ngModel)]="manufacture">
+                </div>
+                <div class="form-group row justify-content-lg-center justify-content-sm-center">
+
+                    <label for="inputBrandGpu" class="col-lg-3 col-form-label">Producent</label>
+                    <input class="form-control col-lg-4 col-sm-8" id="inputBrandGpu" [(ngModel)]="brandGpu">
+                </div>
+                <div class="form-group row justify-content-lg-center justify-content-sm-center">
+
+                    <label for="inputTypeGpu" class="col-lg-3 col-form-label">Model</label>
+                    <input class="form-control col-lg-4 col-sm-8" id="inputTypeGpu" [(ngModel)]="typeGpu">
+                </div>
+                <div class="form-group row justify-content-lg-center justify-content-sm-center">
+                    <label for="inputTdpGpu" class="col-lg-3 col-form-label">TDP</label>
+                    <input class="form-control col-lg-4 col-sm-8" id="inpputTdpGpu" [(ngModel)]="tdp">
+                    <br />
+                </div>
+                <div class="form-group row justify-content-lg-center justify-content-sm-center">
+                    <label for="inputCheckBox" class="col-lg-3 col-form-label">Polecane</label>
+                    <input class="form-check col-lg-1 offset-lg-1 resizeButton" type="checkbox" id="inputCheckBox" [(ngModel)]="recommend">
+                    <div class="col-lg-2"></div>
+                    <br />
+                </div>
+                <div class="form-group row justify-content-lg-center justify-content-sm-center">
+                    <button class="btn btn-primary"  style="margin-right: 5px;"  (click)="saveGPU()">Zapisz</button>
+                    <button class="btn btn-primary" (click)="deleteGPU(idGpu)">Usuń</button>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="Powiazanie">
+            <br />
+            <div>
+                <div class="form-group row justify-content-lg-center justify-content-sm-center">
+                    <label for="cpuSelect" class="col-lg-2 col-form-label">Wybierz CPU</label>
+                    <div class="col-lg-4 col-sm-9">
+                        <select class="form-control col-lg-2" id="cpuSelect" name="cpuSelect" [(ngModel)]="idCpu">
+                            <option *ngFor='let item of cpuList' [value]='item.id'>
+                                {{item.brand}} {{item.type}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row justify-content-lg-center justify-content-sm-center">
+
+                    <label for="gpuSelect" class="col-lg-2 col-form-label">Wybierz GPU</label>
+                    <div class="col-lg-4 col-sm-9">
+                        <select class="form-control col-lg-2" id="gpuSelect" name="gpuSelect" [(ngModel)]="idGpu">
+                            <option *ngFor='let item of gpuList' [value]='item.id'>
+                                {{item.manufacture}} {{item.brand}} {{item.type}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <br />
+                <div class="row justify-content-center justify-content-sm-center">
+                    <button class="btn btn-primary" (click)="saveCPUtoGPU()">Przypisz</button>
+                </div>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+

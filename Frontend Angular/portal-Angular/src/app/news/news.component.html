@@ -1,0 +1,67 @@
+<div style="width:90%; background:white; margin-left:auto; margin-right:auto;">
+    <div>
+        <p style="font-family:Impact;font-size:25px;"> {{newsData?.title}}</p><br />
+
+
+        <img src="{{'data:image/jpg;base64,' + newsData?.image}}" />
+
+        <br />
+        <div>
+            <div style='white-space: pre-wrap;' [innerHTML]='dataPass(newsData?.article)'></div>
+            <br />
+        </div>
+    </div>
+    <div *ngIf="User == true;else disabletemplate" class="allig-rigth-side">
+        <form class="form-inline">
+            <div class="form-group">
+                <select class="form-control" style="margin-left: 10px;" id="rate" name="rate" [(ngModel)]="rateNews">
+                    <option *ngFor='let item of Rating' [value]='item.value'>
+                        {{item.value}}
+                    </option>
+                </select>
+            </div>
+
+            <button class="btn btn-primary" (click)="rateArticle()">Oceń</button>
+        </form>
+    </div>
+    <ng-template #disabletemplate></ng-template>
+    <br />
+    <div style="font-size:24px;">
+        Komentarze
+        <div style="width:40%">
+            <hr class="style1" style="border-top:5px solid orange;" />
+        </div>
+    </div>
+    <div class="container" style="width:60%; margin-left:20px; margin-right:auto;">
+        <div *ngFor="let item of newsData?.commentsSet">
+            <div class="row" style="background-color:gainsboro;">
+                <div class="col-8" style="font-weight:bold;font-size:12px;">{{item?.user.username}}</div>
+                <div class="col-4" style="text-align: end;">{{item?.date}}</div>
+            </div>
+            <div class="row" style="line-height:2.5em;">
+                <div class="col"> {{item?.text}}</div>
+            </div>
+            <div class="row">
+                <div class="col" style="line-height:3em;">
+                </div>
+            </div>
+            <div>
+                <hr class="style1" style="border-top:1px solid gainsboro;" />
+            </div>
+            <div class="row">
+                <div class="col" style="line-height:6em;">
+                </div>
+            </div>
+        </div>
+        <br />
+        <div *ngIf="User == true;else notLogin">
+
+            <textarea class="form-control" id="textArea-comment" rows="2" [(ngModel)]="commentData"></textarea>
+            <p></p>
+            <button class="btn btn-primary" (click)='addComment($event)'>Dodaj komentarz</button>
+        </div>
+        <ng-template #notLogin>
+            You are not Login
+        </ng-template>
+    </div>
+</div>
