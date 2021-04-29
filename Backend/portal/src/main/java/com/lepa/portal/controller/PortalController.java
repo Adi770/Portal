@@ -117,7 +117,7 @@ public class PortalController {
     //region Post
 
     @PostMapping("/News")
-    public News addNews(@RequestParam("news") String news, @RequestParam("image") MultipartFile file) {
+    public News addNews(@RequestParam("news") String news, @RequestParam("images") MultipartFile file) {
         return newsService.addNews(news, file);
     }
 

@@ -135,7 +135,7 @@ class PortalControllerTest {
     void updateNews()throws Exception {
         int id = 11;
         NewsDTO newsDTO=new NewsDTO();
-        MockMultipartFile file=new MockMultipartFile("image","your image".getBytes());
+        MockMultipartFile file=new MockMultipartFile("images","your image".getBytes());
 
         mockMvc.perform(put(controllerAddress + "/News/" + id)
                 .content(objectMapper.writeValueAsString(newsDTO))
@@ -161,7 +161,7 @@ class PortalControllerTest {
     //region Post
     @Test
     void addNews() throws Exception {
-        MockMultipartFile file=new MockMultipartFile("image","your image".getBytes());
+        MockMultipartFile file=new MockMultipartFile("images","your image".getBytes());
 
         News news=new News();
 

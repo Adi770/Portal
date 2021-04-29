@@ -22,7 +22,7 @@ import java.util.UUID;
 public class UploadService {
 
     private AWS3Service aws3Service;
-    String pathToObject = "image/";
+    String pathToObject = "images/";
 
     @Autowired
     public UploadService(AWS3Service aws3Service) {

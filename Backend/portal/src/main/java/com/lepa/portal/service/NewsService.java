@@ -16,7 +16,6 @@ import com.lepa.portal.repository.NewsRepo;
 import com.lepa.portal.repository.UsersRepo;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
@@ -30,8 +29,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -54,7 +53,6 @@ public class NewsService {
     private ForumSectionRepo forumSectionRepo;
 
 
-
     @Autowired
     public NewsService(ModelMapper modelMapper, CommentsRepo commentsRepo, NewsRepo newsRepo, UsersRepo usersRepo, UploadService uploadService, UsersService usersService, ForumSectionRepo forumSectionRepo) {
         this.modelMapper = modelMapper;
@@ -67,13 +65,10 @@ public class NewsService {
     }
 
 
-
-
-
     public List<News> allNews(int page, int size) {
-        log.info("Load news list Page:"+page+" Size:"+size);
+        log.info("Load news list Page:" + page + " Size:" + size);
         Page<News> newsPage = newsRepo.findAllByOrderByIdDesc(PageRequest.of(page - 1, size));
-        newsPage.forEach(d->d.setImage(encodeImage(d.getImage())));
+        newsPage.forEach(d -> d.setImage(encodeImage(d.getImage())));
         return newsPage.getContent();
     }
 
@@ -99,7 +94,7 @@ public class NewsService {
 
     public News updateNews(long id, NewsDTO newsDTO) {
         log.info("Update news");
-        News news = newsRepo.findNewsById(id).orElseThrow(()->new NewsNotFoundException(NEWS_NOT_FOUND));
+        News news = newsRepo.findNewsById(id).orElseThrow(() -> new NewsNotFoundException(NEWS_NOT_FOUND));
         news.setDate(LocalDate.now());
         news.setTitle(newsDTO.getTitle());
         news.setArticle(newsDTO.getArticle());
@@ -107,7 +102,7 @@ public class NewsService {
     }
 
     public void deleteNews(long id) {
-        log.info("delete news "+id);
+        log.info("delete news " + id);
         newsRepo.deleteById(id);
     }
 
@@ -123,7 +118,7 @@ public class NewsService {
     }
 
     public void deleteComment(long id) {
-        log.info("delete news "+id);
+        log.info("delete news " + id);
         if (!commentsRepo.existsById(id)) {
             throw new NullPointerException("id doesnt exist");
         }
@@ -144,7 +139,7 @@ public class NewsService {
     }
 
     public Comments createComment(long idNews, CommentsDTO commentsDTO) {
-       News news =newsRepo.findNewsById(idNews).orElseThrow(()->new NewsNotFoundException(NEWS_NOT_FOUND));
+        News news = newsRepo.findNewsById(idNews).orElseThrow(() -> new NewsNotFoundException(NEWS_NOT_FOUND));
         Comments com = modelMapper.map(commentsDTO, Comments.class);
         com.setNews(news);
         com.setUser(usersService.returnCurrentUser());
@@ -185,7 +180,7 @@ public class NewsService {
     }
 
     public News rateArticle(long id, int rate) {
-        News news = newsRepo.findNewsById(id).orElseThrow(()->new NewsNotFoundException(NEWS_NOT_FOUND));
+        News news = newsRepo.findNewsById(id).orElseThrow(() -> new NewsNotFoundException(NEWS_NOT_FOUND));
         long userId = usersService.returnCurrentUserId();
 
         ArticleRating articleRating = new ArticleRating();
@@ -238,7 +233,7 @@ public class NewsService {
     }
 
     public NewsDTO oneNews(long id) {
-        News news = newsRepo.findNewsById(id).orElseThrow(()->new NewsNotFoundException(NEWS_NOT_FOUND));
+        News news = newsRepo.findNewsById(id).orElseThrow(() -> new NewsNotFoundException(NEWS_NOT_FOUND));
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STANDARD);
 
         Converter<News, NewsDTO> customConverter = new Converter<News, NewsDTO>() {
@@ -263,26 +258,30 @@ public class NewsService {
     }
 
     public String encodeImage(String image) {
-        Pattern pattern=Pattern.compile("resources.image");
-        Matcher matcher= pattern.matcher(image);
-        byte[] fileContent = new byte[10];
-        if(matcher.find())
-        {
+        Pattern pattern = Pattern.compile("images.");
+        Matcher matcher = pattern.matcher(image);
+        byte[] fileContent = new byte[1000];
+        if (matcher.find()) {
             log.info("load from disk");
             try {
                 log.info("load image");
-                fileContent = FileUtils.readFileToByteArray(new File(image));
+                InputStream is = getClass().getResourceAsStream(image);
+
+                if(is== null){
+                    log.info("null");
+                }
+                fileContent = IOUtils.toByteArray(is);
+
             } catch (IOException e) {
                 log.info("Error with image");
                 e.printStackTrace();
             }
             log.info("return image");
             return Base64.getEncoder().encodeToString(fileContent);
-        }else
-        {
+        } else {
             log.info("load from AWS");
             try {
-                fileContent= IOUtils.toByteArray(uploadService.loadImageFromAWS(image));
+                fileContent = IOUtils.toByteArray(uploadService.loadImageFromAWS(image));
             } catch (IOException e) {
                 e.printStackTrace();
             }
