@@ -20,3 +20,6 @@ Frontend<br/>
 https://spring-angular-frontend.herokuapp.com <br/>
 Backend<br/>
 https://portal62878.herokuapp.com/swagger-ui.html
+
+## Screenshots:
+![test image magisterka](https://user-images.githubusercontent.com/57359404/139542004-ec1801f8-a9aa-42cc-9e29-17b776a38fc4.png)
